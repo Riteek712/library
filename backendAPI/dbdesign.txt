@@ -1,0 +1,24 @@
+User Table
+
+user_id (Primary Key)
+username (Unique)
+password_hash
+type (Enum: 'Admin', 'Borrower')
+
+
+Book Table
+
+book_id (Primary Key)
+title
+quantity
+return_date
+added_by (Foreign Key referencing User.user_id)
+
+
+BorrowedBooks Table
+
+borrow_id (Primary Key)
+book_id (Foreign Key referencing Book.book_id)
+user_id (Foreign Key referencing User.user_id)
+borrow_date
+return_date
