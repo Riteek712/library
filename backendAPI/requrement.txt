@@ -1,0 +1,11 @@
+1. Signup and Login
+2. Login return jwt aceess token
+3. Two types of User - (Admin and borrower)
+4. Admin can add new books and approve any borrow request from a borrower
+5. Both Admin and User can view all the available books
+6. Borrower can request to borrow a book.
+7. Admin can see borrowers of a book.
+8. Any book can be borrowed for 7 days max.If a user wants it for longer than 7 days then they will have to request for another 7 days and so on.
+9. Admin Can see all the books for which the return deadline have passed.
+10. Borrower can return a book.
+11. Only a certain number of quantity per book is available it should not be borrowed more than the available quantity.
