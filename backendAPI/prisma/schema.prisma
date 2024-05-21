@@ -19,14 +19,13 @@ enum UserType {
 }
 
 model User {
-  user_id       String          @id @default(uuid()) // Primary Key
+  id        Int      @id @default(autoincrement())
   email         String          @unique
   username      String          @unique
   password_hash String
   type          UserType // Enum: 'Admin', 'Borrower'
-  // Define the relation to the Book table
-  // borrowedBooks BorrowedBooks[] // One-to-many relation
-  // Book          Book[]
+  role      Role
+  borrowRequests BorrowRequest[]
 }
 
 model Book {
@@ -47,7 +46,7 @@ model BorrowRequest {
   status      BorrowStatus
   borrowDate  DateTime
   returnDate  DateTime?
-  // user        User     @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
   book        Book     @relation(fields: [bookId], references: [id])
 }
 
