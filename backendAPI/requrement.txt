@@ -9,3 +9,8 @@
 9. Admin Can see all the books for which the return deadline have passed.
 10. Borrower can return a book.
 11. Only a certain number of quantity per book is available it should not be borrowed more than the available quantity.
+
+12. initial fee feature
+13. stripe integration 
+14. email notification service
+15. AWS EC2 setup
