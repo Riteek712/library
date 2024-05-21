@@ -19,37 +19,46 @@ enum UserType {
 }
 
 model User {
-  user_id       String          @id @default(uuid()) // Primary Key
+  id        Int      @id @default(autoincrement())
   email         String          @unique
   username      String          @unique
   password_hash String
   type          UserType // Enum: 'Admin', 'Borrower'
-  // Define the relation to the Book table
-  borrowedBooks BorrowedBooks[] // One-to-many relation
-  Book          Book[]
+  role      Role
+  borrowRequests BorrowRequest[]
 }
 
-// Define the Book table
 model Book {
-  book_id       String          @id @default(uuid()) // Primary Key
-  title         String
-  quantity      Int
-  return_date   DateTime?
-  // Define the relation to the User table
-  added_by      String
-  user_added_by User            @relation(fields: [added_by], references: [user_id]) // Foreign Key
-  BorrowedBooks BorrowedBooks[]
+  id          Int      @id @default(autoincrement())
+  title       String
+  author      String
+  quantity    Int
+  borrowRequests BorrowRequest[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-// Define the BorrowedBooks table
-model BorrowedBooks {
-  borrow_id   String    @id @default(uuid()) // Primary Key
-  book_id     String // Foreign Key
-  user_id     String // Foreign Key
-  borrow_date DateTime
-  return_date DateTime?
-  // Define the relations to the Book and User tables
-  book        Book      @relation(fields: [book_id], references: [book_id])
-  user        User      @relation(fields: [user_id], references: [user_id])
+model BorrowRequest {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  bookId      Int
+  status      BorrowStatus
+  borrowDate  DateTime
+  returnDate  DateTime?
+  user        User     @relation(fields: [userId], references: [id])
+  book        Book     @relation(fields: [bookId], references: [id])
+}
+
+enum Role {
+  ADMIN
+  BORROWER
+}
+
+enum BorrowStatus {
+  PENDING
+  APPROVED
+  RETURNED
+  OVERDUE
 }
 
