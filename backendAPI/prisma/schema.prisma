@@ -34,11 +34,32 @@ model Book {
   title       String
   author      String
   quantity    Int
-  // borrowRequests BorrowRequest[]
+  borrowRequests BorrowRequest[]
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
+model BorrowRequest {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  bookId      Int
+  status      BorrowStatus
+  borrowDate  DateTime
+  returnDate  DateTime?
+  // user        User     @relation(fields: [userId], references: [id])
+  book        Book     @relation(fields: [bookId], references: [id])
+}
 
+enum Role {
+  ADMIN
+  BORROWER
+}
+
+enum BorrowStatus {
+  PENDING
+  APPROVED
+  RETURNED
+  OVERDUE
+}
 
